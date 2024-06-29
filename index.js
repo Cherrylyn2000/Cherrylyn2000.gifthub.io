@@ -1,50 +1,53 @@
-const btnLike1 = document.getElementById("btnLike1")
-const countLike1 = document.getElementById("countLike1")
+document.addEventListener("DOMContentLoaded", function() {
+    const productsLeft = document.querySelectorAll(".col-4:nth-child(3n-2)");
 
-function clickLike1(){
-  let totalLikes = parseInt(countLike1.value) + 1
-  countLike1.textContent = totalLikes.toString()
-}
-btnLike1.addEventListener("click",clickLike1)
+    productsLeft.forEach(product => {
+        const price = product.querySelector("label[id^='price']").innerText;
+        const quantityInput = product.querySelector("input[type='number']");
 
-function clickLike2(){
-  let totalLikes = parseInt(countLike2.value) + 1
-  countLike2.textContent = totalLikes.toString()
-}
-btnLike2.addEventListener("click",clickLike2)
+        quantityInput.addEventListener("input", function() {
+            updateTotal();
+        });
+    });
 
-const btnDisLike1 = document.getElementById("btnDisLike1")
-const countDisLike1 = document.getElementById("countDisLike1")
+    function updateTotal() {
+        const products = document.querySelectorAll(".col-4:nth-child(3n-2)");
+        let total = 0;
 
-function clickDisLike1(){
-  let totalDisLikes = parseInt(countDisLike1.value) + 1
-  countDisLike1.textContent = totalDisLikes.toString()
-}  
-btnDisLike1.addEventListener("click",clickDisLike1)
+        products.forEach(product => {
+            const price = parseFloat(product.querySelector("label[id^='price']").innerText);
+            const quantity = parseInt(product.querySelector("input[type='number']").value);
 
-const btnDisLike2 = document.getElementById("btnDisLike2")
-const countDisLike2 = document.getElementById("countDisLike2")
+            total += price * quantity;
+        });
 
-function clickDisLike2(){
-  let totalDisLikes = parseInt(countDisLike2.value) + 1
-  countDisLike2.textContent = totalDisLikes.toString()
-}  
-btnDisLike2.addEventListener("click",clickDisLike2)
+        document.getElementById("total").value = total.toFixed(2);
+    }
+});
+                         document.addEventListener("DOMContentLoaded", function() {
+    const productsRight = document.querySelectorAll(".col-4:nth-child(3n)");
 
+    productsRight.forEach(product => {
+        const price = product.querySelector("label[id^='price']").innerText;
+        const quantityInput = product.querySelector("input[type='number']");
 
+        quantityInput.addEventListener("input", function() {
+            updateTotal();
+        });
+    });
 
-const submit = document.getElementById("submit")
+    function updateTotal() {
+        const products = document.querySelectorAll(".col-4:nth-child(3n)");
+        let total = 0;
 
-const comment = document.getElementById("comment")
+        products.forEach(product => {
+            const price = parseFloat(product.querySelector("label[id^='price']").innerText);
+            const quantity = parseInt(product.querySelector("input[type='number']").value);
 
-const commentbox = document.getElementById("commentbox")
+            total += price * quantity;
+        });
 
-function submitComment(){
-
-commentbox.textContent += comment.value.toString() + "\n"
-
-comment.value=""
-
-}
-
-submit.addEventListener("click", submitComment)
+        document.getElementById("total").value = total.toFixed(2);
+    }
+});
+                           
