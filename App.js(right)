@@ -1,1 +1,23 @@
+var order = document.getElementById("order");
+var total = document.getElementById("total");
+var cashTendered = document.getElementById("cashTendered");
+var change = document.getElementById("change");
+
+function calculateChange() {
+    var totalAmount = parseFloat(total.textContent);
+    var cashAmount = parseFloat(cashTendered.value);
+
+    if (isNaN(cashAmount)) {
+        change.textContent = "Invalid amount";
+    } else {
+        var changeAmount = cashAmount - totalAmount;
+        if (changeAmount >= 0) {
+            change.textContent = "Change: " + changeAmount.toFixed(2);
+        } else {
+            change.textContent = "Insufficient amount";
+        }
+    }
+}
+
+cashTendered.addEventListener("keyup", calculateChange);
 
