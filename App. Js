@@ -1,0 +1,54 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const products = [
+        { name: 'Samsung S21', price: 27000.00 },
+        { name: 'Samsung S22', price: 37000.00 },
+        { name: 'iPhone 13', price: 45000.00 },
+        { name: 'iPhone 14', price: 50000.00 },
+        { name: 'OnePlus 9', price: 30000.00 },
+        { name: 'Google Pixel 6', price: 35000.00 }
+    ];
+
+    const productsTable = document.getElementById('products');
+
+    products.forEach((product, index) => {
+        const row = productsTable.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+
+        cell1.innerText = product.name;
+        cell2.innerText = product.price.toFixed(2);
+        cell3.innerHTML = `<input type="number" id="quantity-${index}" value="0" min="0" onchange="updateTotal(${index}, ${product.price})" />`;
+        cell4.innerText = '0.00';
+        cell4.id = `total-${index}`;
+    });
+
+    calculateTotalCost();
+});
+
+function updateTotal(index, price) {
+    const quantity = document.getElementById(`quantity-${index}`).value;
+    const total = price * quantity;
+    document.getElementById(`total-${index}`).innerText = total.toFixed(2);
+    calculateTotalCost();
+}
+
+function calculateTotalCost() {
+    const products = document.querySelectorAll('[id^="total-"]');
+    let totalCost = 0;
+
+    products.forEach(product => {
+        totalCost += parseFloat(product.innerText);
+    });
+
+    document.getElementById('total-cost').innerText = totalCost.toFixed(2);
+}
+
+function calculateChange() {
+    const totalCost = parseFloat(document.getElementById('total-cost').innerText);
+    const cash = parseFloat(document.getElementById('cash').value);
+    const change = cash - totalCost;
+
+    document.getElementById('change').innerText = change.toFixed(2);
+}
